@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Disaster Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url("{{ url_for('static', filename='images/disasters-1.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      color: white; /* Text color so it's readable over the image */
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    nav {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      background: rgba(0, 0, 0, 0.4); /* semi-transparent bg for readability */
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    nav a:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Disaster Management System</h1>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/alerts">Disaster Alerts</a>
+    <a href="/report">Report Disaster</a>
+    <a href="/tips">Safety Tips</a>
+  </nav>
+</body>
+</html>

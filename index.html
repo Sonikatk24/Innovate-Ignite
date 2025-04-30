@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disaster Management - Rapid Response</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        #map { height: 400px; width: 100%; margin-top: 20px; }
+        .alert-card, .report-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Disaster Alert System</h1>
+    
+    <h2>Welcome {{ user }}</h2>
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+
+    <form action="/report" method="post">
+        <input type="text" name="name" placeholder="Your Name" required><br>
+        <input type="text" name="location" placeholder="Location" required><br>
+        <textarea name="description" placeholder="Describe the situation" required></textarea><br>
+        <input type="text" name="latitude" placeholder="Latitude (optional)"><br>
+        <input type="text" name="longitude" placeholder="Longitude (optional)"><br>
+        <button type="submit">Send Alert</button>
+    </form>
+
+    <h2>Recent Alerts:</h2>
+    {% if reports %}
+        {% for report in reports %}
+            <div class="alert-card">
+                <h3>{{ report.name }} ({{ report.time }})</h3>
+                <p><strong>Location:</strong> {{ report.location }}</p>
+                <p>{{ report.description }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No reports submitted yet.</p>
+    {% endif %}
+
+    <div id="map"></div>
+
+    <script>
+        function initMap() {
+            const center = { lat: 20.5937, lng: 78.9629 }; // Center of India
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 4,
+                center: center,
+            });
+
+            {% for r in reports %}
+            {% if r.lat and r.lng %}
+            new google.maps.Marker({
+                position: { lat: parseFloat("{{ r.lat }}"), lng: parseFloat("{{ r.lng }}") },
+                map: map,
+                title: "{{ r.location }}",
+            });
+            {% endif %}
+            {% endfor %}
+        }
+    </script>
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1Q97CAWFqWjkTnRVDlpfvv_J_sPTVE8Q&callback=initMap"
+        async defer>
+    </script>
+</body>
+</html>

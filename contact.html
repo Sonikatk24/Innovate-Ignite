@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Contact Us</h1>
+  <nav>
+    <a href="/">Home</a> |
+    <a href="/alerts">Alerts</a> |
+    <a href="/report">Report</a> |
+    <a href="/tips">Tips</a> |
+    <a href="/contact">Contact</a>
+  </nav>
+
+  {% if success %}
+    <p style="color: green;">Message sent successfully!</p>
+  {% endif %}
+
+  <form method="POST" action="/contact">
+    <label for="name">Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label for="message">Message:</label><br>
+    <textarea name="message" rows="4" required></textarea><br><br>
+
+    <button type="submit">Send Message</button>
+  </form>
+</body>
+</html>
